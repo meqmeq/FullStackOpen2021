@@ -30,7 +30,7 @@ const CountryInfo = (p) => {
         <img src={p.flag} alt="flag" height={100} width="auto" />
       </div>
 
-      <h2>Weather in {p.name}</h2>
+      <h2>Weather in {p.capital}</h2>
       {data !== "" ? (
         <div>
           <div style={{ display: "inline" }}>
