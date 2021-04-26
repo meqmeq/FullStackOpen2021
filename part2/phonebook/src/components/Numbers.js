@@ -1,10 +1,18 @@
 import React from "react";
 import personService from "../services/Service";
 
-const Numbers = ({ person }) => {
+const Numbers = ({ person, setMessage }) => {
   const test = (e) => {
     window.confirm(`Delete ${person.name} ?`)
-      ? personService.deletePerson(person.id).then(window.location.reload())
+      ? personService
+          .deletePerson(person.id)
+          .catch((error) => {
+            setMessage(`Testing ${error}`);
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+          })
+          .then(window.location.reload())
       : console.log("is not delete");
   };
 
