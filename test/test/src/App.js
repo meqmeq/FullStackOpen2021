@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Note from "./components/Note";
 import axios from "axios";
 
+const baseUrl = "/api/notes";
+
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
@@ -9,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios.get("http://localhost:3001/api/notes").then((response) => {
+    axios.get(baseUrl).then((response) => {
       console.log("promise fulfilled");
       setNotes(response.data);
     });
@@ -24,12 +26,10 @@ const App = () => {
       important: Math.random() > 0.5,
     };
 
-    axios
-      .post("http://localhost:3001/api/notes", noteObject)
-      .then((response) => {
-        setNotes(notes.concat(response.data));
-        setNewNote("");
-      });
+    axios.post(baseUrl, noteObject).then((response) => {
+      setNotes(notes.concat(response.data));
+      setNewNote("");
+    });
   };
 
   const handleNoteChange = (event) => {
