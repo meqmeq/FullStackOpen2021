@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Note from "./components/Note";
 import axios from "axios";
 
-const baseUrl = "/api/notes";
+//Got to change the below back for backEnd integration
+// const baseUrl = "/api/notes";
+const baseUrl = "http://localhost:3001/notes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
