@@ -119,15 +119,25 @@ const App = () => {
         name: newName,
         number: newNumber,
       };
-      personService.create(personObject).then((newPerson) => {
-        setPersons(persons.concat(newPerson));
-        setMessage(`Added ${newPerson.name}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-        setNewName("");
-        setNumber("");
-      });
+      personService
+        .create(personObject)
+        .then((newPerson) => {
+          setPersons(persons.concat(newPerson));
+          setMessage(`Added ${newPerson.name}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+          setNewName("");
+          setNumber("");
+        })
+        .catch((error) => {
+          setErrorType("Error");
+          setMessage(`${error.response.data.error}`);
+          console.log(error.response.data.error);
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        });
       console.log(personObject);
     }
   };
