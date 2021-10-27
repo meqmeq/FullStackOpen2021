@@ -4,9 +4,9 @@
   "description": "Part 4 Assignment for Blog",
   "main": "index.js",
   "scripts": {
-    "dev" : "nodemon index.js",
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENMV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +14,17 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "lodash": "^4.17.21",
     "mongoose": "^5.13.5",
     "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.0.6",
+    "supertest": "^6.1.6"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
