@@ -149,6 +149,35 @@ test("checks blog added without title and url", async () => {
   expect(endBlog).toHaveLength(helper.initialBlogs.length);
 });
 
+describe("deletion of a blog", () => {
+  test("succeeds with status code 204 if id is valid", async () => {
+    const blogsAtStart = await helper.blogsInDb();
+    const blogToDelete = blogsAtStart[0];
+
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+    const blogsAtEnd = await helper.blogsInDb();
+
+    expect(blogsAtEnd).toHaveLength(blogsAtStart.length - 1);
+
+    const titles = blogsAtEnd.map((r) => r.title);
+
+    expect(titles).not.toContain(blogToDelete.title);
+  });
+});
+
+describe("Change the amount of likes", () => {
+  test("succeeds with status code 200", async () => {
+    const blogsAtStart = await helper.blogsInDb();
+    const blogToPut = blogsAtStart[0];
+
+    await api.put(`/api/blogs/${blogToPut.id}`).send({ likes: 40 }).expect(200);
+
+    const blogsAtEnd = await helper.blogsInDb();
+    expect(blogsAtEnd[0].likes).toEqual(40);
+  });
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
